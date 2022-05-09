@@ -16,21 +16,12 @@ function ExpensesList(props) {
         <div>
             <Card className="expenses">
                 <ExpensesFilter year={filteredYear} onChangeFilter={filterChangeHandler} />
+                {expenses.map((expense) => 
                 <ExpenseItem 
-                    title={expenses[0].title} 
-                    amount={expenses[0].amount} 
-                    date={expenses[0].date} 
-                />
-                <ExpenseItem 
-                    title={expenses[1].title} 
-                    amount={expenses[1].amount} 
-                    date={expenses[1].date} 
-                />
-                <ExpenseItem 
-                    title={expenses[2].title} 
-                    amount={expenses[2].amount} 
-                    date={expenses[2].date} 
-                />
+                    title={expense.title} 
+                    amount={expense.amount} 
+                    date={expense.date} 
+                />)}
             </Card>
         </div>
     )
