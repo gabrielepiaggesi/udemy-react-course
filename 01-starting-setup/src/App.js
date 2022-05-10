@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import ExpensesList from './components/Expenses/ExpensesList';
+import React, { useState } from 'react'; // import of react is just optinal, is imported to just remember that a lot of current react projects outthere still do this
+import Expenses from './components/Expenses/Expenses';
 import NewExpense from './components/NewExpenses/NewExpense';
 
 const DUMMY_EXPENSES = [
@@ -34,7 +34,7 @@ const App = () => {
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
-      <ExpensesList items={expenses} />
+      <Expenses items={expenses} />
     </div>
   );
 }
