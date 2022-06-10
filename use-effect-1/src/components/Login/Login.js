@@ -52,6 +52,7 @@ const Login = (props) => {
 
     return () => { // this function is called before the new useEffect is called for each change. So this is necessary to make an effect similar to a debounce time of 500ms, because this function remove all timeout that are run instantly everytime the user types, if the user stops for atleast 500ms the setTimeout function is ran and so setFormIsValid is ran.
       clearTimeout(identifier);
+      console.log('CLEANUP');
     };
   }, [emailIsValid, passwordIsValid]);  // this runs only when email or password change, beacuse their variables are indicated as dependencies here.
 
