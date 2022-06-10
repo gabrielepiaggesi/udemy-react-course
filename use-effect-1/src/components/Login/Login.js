@@ -34,40 +34,41 @@ const Login = (props) => {
   const [emailState, dispatchEmail] = useReducer(emailReducer, { value: '', isValid: null });
   const [passwordState, dispatchPassword] = useReducer(passwordReducer, { value: '', isValid: null });
 
-  useEffect(() => {
-    console.log('EFFECT RUNNING');
-
-    return () => {
-      console.log('EFFECT CLEANUP');
-    };
-  }, []); 
-
   // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     setFormIsValid(
-  //       emailState.isValid && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
+  //   console.log('EFFECT RUNNING');
 
-  //   return () => { // this function is called before the new useEffect is called for each change. So this is necessary to make an effect similar to a debounce time of 500ms, because this function remove all timeout that are run instantly everytime the user types, if the user stops for atleast 500ms the setTimeout function is ran and so setFormIsValid is ran.
-  //     clearTimeout(identifier);
+  //   return () => {
+  //     console.log('EFFECT CLEANUP');
   //   };
-  // }, [emailState.value, emailState.isValid, enteredPassword]);  // this runs only when email or password change, beacuse their variables are indicated as dependencies here.
+  // }, []); 
+
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
+
+    return () => { // this function is called before the new useEffect is called for each change. So this is necessary to make an effect similar to a debounce time of 500ms, because this function remove all timeout that are run instantly everytime the user types, if the user stops for atleast 500ms the setTimeout function is ran and so setFormIsValid is ran.
+      clearTimeout(identifier);
+    };
+  }, [emailIsValid, passwordIsValid]);  // this runs only when email or password change, beacuse their variables are indicated as dependencies here.
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: 'USER_INPUT', val: event.target.value });
 
-    setFormIsValid(
-      event.target.value.includes('@') && passwordState.isValid
-    );
+    // setFormIsValid(
+    //   event.target.value.includes('@') && passwordState.isValid
+    // );
   };
 
   const passwordChangeHandler = (event) => {
     dispatchPassword({ type: 'USER_INPUT', val: event.target.value });
 
-    setFormIsValid(
-      emailState.isValid && event.target.value.trim().length > 6
-    );
+    // setFormIsValid(
+    //   emailState.isValid && event.target.value.trim().length > 6
+    // );
   };
 
   const validateEmailHandler = () => {
